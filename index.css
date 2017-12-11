@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 18px;
+  overflow: hidden;
 }
 
 .title {
@@ -9,29 +10,48 @@ body {
   font-size: 20px;
   opacity: 0.75;
 }
-
-section {
+.fullscreen {
+  min-height: 100vh;
   width: 100%;
-  /*
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  */
-}
-#menu {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 10;
-  text-decoration: none;
-  cursor: pointer;
-  margin: 7px;
+  margin: 0;
 }
 #chart {
+  margin: 0;
+  padding: 0;
+}
+#btn-menu {
   position: absolute;
+  left: 0;
   top: 0;
-  min-height: 100vh;
+  z-index: 10;
+  height: 100%;
+  padding: 2px;
+  color: #999;
+  border-left: solid 1px #999;
+  border-right: solid 1px #999;
+  border-radius: 0;
+}
+
+#menu {
+  max-width: 20em;
+}
+#menu.collapsing {
+  transition: none;
+  display: none;
+}
+
+#btn-menu[aria-expanded="false"]::after {
+  content: ">";
+}
+#btn-menu[aria-expanded="true"]::after {
+  content: "<";
+}
+
+
+#menu {
+}
+#chart svg {
+  width: 100%;
 }
 
 .line {

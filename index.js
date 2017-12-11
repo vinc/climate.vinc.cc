@@ -1,12 +1,11 @@
 var clean = function(selector) {
-  d3.selectAll("svg" + (selector || "") + " g").remove();
-  d3.selectAll("svg" + (selector || "") + " path").remove();
+  $("#chart svg").empty().removeAttr("width").removeAttr("height");
 };
 
 var build = function(data, opts) {
-  var margin = { top: 50, right: 50, bottom: 50, left: 50 };
-  var width = document.body.clientWidth - margin.left - margin.right;
-  var height = window.innerHeight - margin.top - margin.bottom;
+  var margin = { top: 40, right: 40, bottom: 40, left: 60 };
+  var width = $("#chart").width() - margin.left - margin.right;
+  var height = $("#chart").height() - margin.top - margin.bottom;
 
   var ds = [];
 
@@ -34,7 +33,7 @@ var build = function(data, opts) {
     range([height, 0]).
     domain([yMin, yMax]);
 
-  var svg = d3.select("svg#chart").
+  var svg = d3.select("#chart svg").
     attr("width", width + margin.left + margin.right).
     attr("height", height + margin.top + margin.bottom).
     append("g").
@@ -79,7 +78,7 @@ var build = function(data, opts) {
   var path = svg.append("path").
     data([ds]).
     attr("class", "line").
-    attr("stroke", opts.color || "tomato").
+    attr("stroke", opts.color || "#17a2b8").
     attr("d", yLine);
 
   var zoom = d3.zoom().on("zoom", zoomed);
@@ -112,7 +111,7 @@ var build = function(data, opts) {
   svg.append("text").
     attr("class", "title").
     attr("x", (width / 2)).
-    attr("y", 0 - (margin.top / 2)).
+    attr("y", 5 - (margin.top / 2)).
     attr("text-anchor", "middle").
     text(opts.title);
 };
@@ -126,13 +125,16 @@ var load = function(url, opts) {
 
     build(data, opts);
 
-    d3.select(window).on("resize", function() {
+    var reset = function() {
       clearTimeout(timeout);
       timeout = setTimeout(function() {
         clean();
         build(data, opts);
-      }, 100);
-    });
+      }, 10);
+    };
+    $(window).on("resize", reset);
+    $("#menu").on("shown.bs.collapse", reset);
+    $("#menu").on("hidden.bs.collapse", reset);
   });
 };
 
