@@ -34,6 +34,7 @@ body {
 
 #menu {
   max-width: 20em;
+  height: 100vh;
 }
 #menu.collapsing {
   transition: none;
