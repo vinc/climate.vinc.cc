@@ -181,7 +181,7 @@ var app = new Vue({
         x: "age_calkaBP",
         y: "sealev"
       },
-      "deboer2014.csv?temp": {
+      "data/deboer2014.csv?temp": {
         title: "Global 5 Million Year Temperature Reconstructions",
         x: "age_calkaBP",
         y: "tempanomNH"
@@ -189,13 +189,13 @@ var app = new Vue({
     }
   },
   mounted: function() {
-    var name = this.selected;
-    load(name, this.datasets[name]);
+    var key = this.selected;
+    load(key, this.datasets[key]);
   },
   watch: {
-    selected: function(name) {
+    selected: function(key) {
       clean();
-      load(name, this.datasets[name]);
+      load(key, this.datasets[key]);
     }
   }
 });
