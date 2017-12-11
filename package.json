@@ -19,6 +19,7 @@
     "http-server": "^0.10.0"
   },
   "scripts": {
+    "preinstall": "npm install -g http-server",
     "start": "http-server"
   }
 }
