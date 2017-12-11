@@ -1,0 +1,24 @@
+{
+  "name": "climate.vinc.cc",
+  "version": "1.0.0",
+  "description": "Climate chart",
+  "main": "index.js",
+  "repository": "https://github.com/vinc/climate.vinc.cc",
+  "author": "Vincent Ollivier",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "4.0.0-beta.2",
+    "d3": "^4.12.0",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.9",
+    "typeface-source-sans-pro": "^0.0.44",
+    "vue": "^2.5.9"
+  },
+  "devDependencies": {
+    "http-server": "^0.10.0"
+  },
+  "scripts": {
+    "start": "http-server"
+  }
+}

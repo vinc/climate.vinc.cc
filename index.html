@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Climate</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/node_modules/typeface-source-sans-pro/index.css" rel="stylesheet">
+    <link href="/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <section>
+        <button id="menu" type="button" class="btn btn-light" data-toggle="modal" data-target="#settings">
+          &#9776;
+        </button>
+
+        <svg id="chart"></svg>
+      </section>
+    </div>
+
+    <div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="settings-label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settings-label">Settings</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="app">
+              <div class="form-group row">
+                <label for="dataset" class="col-sm-2 col-form-label">Dataset</label>
+                <div class="col-sm-10">
+                  <select class="form-control" id="dataset" v-model="selected">
+                    <option v-for="(_, key) in datasets" v-bind:value="key">
+                      {{ datasets[key].title }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/d3/build/d3.min.js"></script>
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/index.js"></script>
+  </body>
+</html>
