@@ -15,7 +15,7 @@
         <form>
           <div class="form-group">
             <label for="dataset">Dataset</label>
-              <select class="form-control" id="dataset" v-model="selected">
+              <select class="form-control custom-select" id="dataset" v-model="selected">
                 <option v-for="(_, key) in datasets" v-bind:value="key">
                   {{ datasets[key].title }}
                 </option>
