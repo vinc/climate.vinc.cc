@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Climate</title>
+    <title>Climate Chart</title>
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/node_modules/typeface-source-sans-pro/index.css" rel="stylesheet">
     <link href="/index.css" rel="stylesheet">
   </head>
   <body>
-    <div class="row fullscreen">
+    <div id="app" class="row fullscreen">
       <aside id="menu" class="col collapse show bg-info text-light">
         <h1>Climate Chart</h1>
-        <form id="app">
+        <form>
           <div class="form-group">
             <label for="dataset">Dataset</label>
               <select class="form-control" id="dataset" v-model="selected">
@@ -22,6 +22,7 @@
               </select>
           </div>
         </form>
+        <p>{{ datasets[selected].description }}</p>
       </aside>
       <section id="chart" class="col">
         <button id="btn-menu" type="button" class="btn btn-light" data-toggle="collapse" data-target="#menu" aria-expanded="true"></button>

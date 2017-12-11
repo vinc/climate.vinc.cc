@@ -27,7 +27,7 @@ var build = function(data, opts) {
 
   var xScale = (opts.x === "date" ? d3.scaleTime() : d3.scaleLinear()).
     range([0, width]).
-    domain([xMin, xMax]);
+    domain(opts.reverse ? [xMax, xMin] : [xMin, xMax]);
 
   var yScale = d3.scaleLinear().
     range([height, 0]).
@@ -145,26 +145,39 @@ var app = new Vue({
     datasets: {
       "data/greenland_d18o.csv": {
         title: "Greenland Ice Core Chronology 2005",
+        description: "Greenland Ice Core Chronology 2005 (GICC05) 60,000 Year, 20 Year Resolution Released 10 September 2007, with d18O data from NGRIP on this time scale. NGRIP dating group, 2008.",
+        source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/greenland/summit/ngrip/gicc05-60ka-20yr.txt",
+        reverse: true,
         x: "age",
         y: "d18o"
       },
       "data/edc_d18o.csv": {
         title: "EPICA Dome C Stable Isotope Data",
+        description: "EPICA Dome C Stable Isotope Data to 44.8 KYrBP. Stenni, B., et al. 2006.",
+        source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/epica_domec/edc96-iso-45kyr.txt",
+        reverse: true,
         x: "age",
         y: "d18o"
       },
       "data/edc_temp.csv": {
         title: "EPICA Dome C Ice Core Temperature Estimates",
+        description: "EPICA Dome C Ice Core 800KYr Deuterium Data and Temperature Estimates. Jouzel, J., et al. 2007.",
+        source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/epica_domec/edc3deuttemp2007.txt",
+        reverse: true,
         x: "age",
         y: "temperature"
       },
       "data/antarctic_co2.csv": {
         title: "Antarctic Ice Cores Revised CO2 Data",
+        description: "Antarctic Ice Cores Revised 800KYr CO2 Data. Bereiter, B.; Eggleston, S.; Schmitt, J.; Nehrbass-Ahles, C.; Stocker, T.F.; Fischer, H.; Kipfstuhl, S.; Chappellaz, J.",
+        source: "https://www1.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/antarctica2015co2composite.txt",
+        reverse: true,
         x: "age",
         y: "co2"
       },
       "data/fuji_temp.csv": {
         title: "Dome Fuji Temperature Reconstruction",
+        reverse: true,
         x: "age",
         y: "Tsite"
       },
