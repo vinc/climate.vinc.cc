@@ -46,6 +46,12 @@ body {
 #btn-menu[aria-expanded="true"]::after {
   content: "<";
 }
+#btn-menu[aria-expanded="false"] {
+  cursor: e-resize;
+}
+#btn-menu[aria-expanded="true"] {
+  cursor: w-resize;
+}
 
 
 #menu {
