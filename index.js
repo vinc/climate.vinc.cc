@@ -125,7 +125,6 @@ var build = function(data, opts) {
 };
 
 var rebuildTimeout;
-var collapseTimeout;
 var load = function(url, opts) {
   d3.csv(url, function(error, data) {
     if (error) {
@@ -158,11 +157,8 @@ var load = function(url, opts) {
     });
     $("#btn-menu").on("mousemove", function() {
       if (dragging) {
-        clearTimeout(collapseTimeout);
-        collapseTimeout = setTimeout(function() {
-          $("#btn-menu").trigger("click");
-          dragging = false;
-        }, 100);
+        $("#btn-menu").trigger("click");
+        dragging = false;
       }
     });
   });
