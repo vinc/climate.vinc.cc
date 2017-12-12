@@ -21,11 +21,23 @@ h1 {
 #btn-menu {
   display: none;
 }
-#btn-menu[aria-expanded="false"]::after {
-  content: ">";
-}
-#btn-menu[aria-expanded="true"]::after {
-  content: "<";
+#btn-menu::after {
+  content: "⋮";
+  position: absolute;
+  left: -5px;
+  top: 0;
+  line-height: 100vh;
+
+  /*
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 4px;
+  display: block;
+  height: 14px;
+  border-right: dotted 2px;
+  margin-top: -3px;
+  */
 }
 #btn-menu[aria-expanded="false"] {
   cursor: e-resize;
@@ -33,6 +45,11 @@ h1 {
 #btn-menu[aria-expanded="true"] {
   cursor: w-resize;
 }
+#btn-menu:active,
+#btn-menu:focus {
+  box-shadow: none;
+}
+
 .text-shadow {
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
@@ -43,16 +60,17 @@ h1 {
     top: -2px;
     z-index: 10;
     height: calc(100% + 2px);
-    padding: 2px;
-    color: #999;
+    padding: 0;
+    width: 8px;
     box-sizing: border-box;
     border-left: solid 1px #999;
     border-right: solid 1px #999;
     border-radius: 0;
     display: block;
+    color: #999;
   }
   #menu {
-    box-shadow: 6px 0px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.5);
     height: 100vh !important;
   }
   #menu.collapsing {
