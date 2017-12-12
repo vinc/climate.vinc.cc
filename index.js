@@ -124,7 +124,8 @@ var build = function(data, opts) {
     text(opts.title);
 };
 
-var timeout;
+var rebuildTimeout;
+var collapseTimeout;
 var load = function(url, opts) {
   d3.csv(url, function(error, data) {
     if (error) {
@@ -134,11 +135,12 @@ var load = function(url, opts) {
     build(data, opts);
 
     $(window).on("resize", function() {
-      clearTimeout(timeout);
-      timeout = setTimeout(function() {
+      clearTimeout(rebuildTimeout);
+      rebuildTimeout = setTimeout(function() {
         build(data, opts);
       }, 10);
     });
+
     $("#menu").on("show.bs.collapse", function() {
       $("svg").hide();
     });
@@ -148,6 +150,20 @@ var load = function(url, opts) {
     });
     $("#menu").on("hidden.bs.collapse", function() {
       build(data, opts);
+    });
+
+    var dragging = false;
+    $("#btn-menu").on("mousedown", function() {
+      dragging = true;
+    });
+    $("#btn-menu").on("mousemove", function() {
+      if (dragging) {
+        clearTimeout(collapseTimeout);
+        collapseTimeout = setTimeout(function() {
+          $("#btn-menu").trigger("click");
+          dragging = false;
+        }, 100);
+      }
     });
   });
 };
