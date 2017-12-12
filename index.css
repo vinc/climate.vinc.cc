@@ -67,6 +67,7 @@ body {
   fill: none;
   stroke-width: 2px;
   opacity: 0.9;
+  clip-path: url(#clip);
 }
 
 .domain {

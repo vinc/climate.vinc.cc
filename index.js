@@ -92,8 +92,12 @@ var build = function(data, opts) {
     attr("opacity", "0").
     call(zoom);
 
+  svg.append("defs").append("clipPath").
+    attr("id", "clip").append("rect").
+    attr("width", width).attr("height", height);
+
   function zoomed() {
-    var xRescale = d3.event.transform.rescaleX(xScale);
+    var xRescale = d3.event.transform.rescaleX(xScale); // .nice();
 
     var domain = xRescale.domain();
     var xZoomMin = domain[0];
