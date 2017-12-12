@@ -1,8 +1,6 @@
-var clean = function(selector) {
-  $("#chart svg").empty().removeAttr("width").removeAttr("height");
-};
-
 var build = function(data, opts) {
+  $("#chart svg").empty().removeAttr("width").removeAttr("height");
+
   var margin = { top: 40, right: 50, bottom: 40, left: 50 };
   var width = $("#chart").width() - margin.left - margin.right;
   var height = $("#chart").height() - margin.top - margin.bottom;
@@ -135,16 +133,22 @@ var load = function(url, opts) {
 
     build(data, opts);
 
-    var reset = function() {
+    $(window).on("resize", function() {
       clearTimeout(timeout);
       timeout = setTimeout(function() {
-        clean();
         build(data, opts);
       }, 10);
-    };
-    $(window).on("resize", reset);
-    $("#menu").on("shown.bs.collapse", reset);
-    $("#menu").on("hidden.bs.collapse", reset);
+    });
+    $("#menu").on("show.bs.collapse", function() {
+      $("svg").hide();
+    });
+    $("#menu").on("shown.bs.collapse", function() {
+      build(data, opts);
+      $("svg").show();
+    });
+    $("#menu").on("hidden.bs.collapse", function() {
+      build(data, opts);
+    });
   });
 };
 
@@ -233,7 +237,6 @@ var app = new Vue({
   },
   watch: {
     selected: function(key) {
-      clean();
       load(key, this.datasets[key]);
     }
   }
