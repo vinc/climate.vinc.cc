@@ -11,7 +11,7 @@
   <body>
     <div id="app" class="row fullscreen">
       <aside id="menu" class="col-md collapse show bg-info text-light">
-        <h1>Climate Chart</h1>
+        <h1 class="mt-3">Climate Chart</h1>
         <form>
           <div class="form-group">
             <label for="dataset">Dataset</label>
@@ -22,7 +22,7 @@
               </select>
           </div>
         </form>
-        <p class="mb-0">{{ datasets[selected].description }}</p>
+        <p>{{ datasets[selected].description }}</p>
       </aside>
       <section id="chart" class="col-md">
         <button id="btn-menu" type="button" class="btn btn-light" data-toggle="collapse" data-target="#menu" aria-expanded="true"></button>

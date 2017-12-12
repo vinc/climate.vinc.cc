@@ -14,10 +14,12 @@ body {
   min-height: 100vh;
   width: 100%;
   margin: 0;
+  flex-direction: column;
 }
 #chart {
   margin: 0;
   padding: 0;
+  flex-grow: 1;
 }
 #btn-menu {
   position: absolute;
@@ -36,6 +38,9 @@ body {
   #menu {
     max-width: 20em;
     height: 100vh;
+  }
+  .fullscreen {
+    flex-direction: row;
   }
 }
 #menu.collapsing {
