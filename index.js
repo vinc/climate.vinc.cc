@@ -155,7 +155,10 @@ var load = function(url, opts) {
     $("#btn-menu").on("mousedown", function() {
       dragging = true;
     });
-    $("#btn-menu").on("mousemove", function() {
+    $("#btn-menu").on("mouseup", function() {
+      dragging = false;
+    });
+    $(document).on("mousemove", function() {
       if (dragging) {
         $("#btn-menu").trigger("click");
         dragging = false;
