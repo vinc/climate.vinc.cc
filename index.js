@@ -3,7 +3,7 @@ var clean = function(selector) {
 };
 
 var build = function(data, opts) {
-  var margin = { top: 40, right: 40, bottom: 40, left: 60 };
+  var margin = { top: 40, right: 50, bottom: 40, left: 50 };
   var width = $("#chart").width() - margin.left - margin.right;
   var height = $("#chart").height() - margin.top - margin.bottom;
 
@@ -20,18 +20,20 @@ var build = function(data, opts) {
     }
   }
 
-  var xMin = opts.xMin || d3.min(ds, function(d) { return d.x; });
-  var xMax = opts.xMax || d3.max(ds, function(d) { return d.x; });
-  var yMin = opts.yMin || d3.min(ds, function(d) { return d.y; });
-  var yMax = opts.yMax || d3.max(ds, function(d) { return d.y; });
+  var xMin = "xMin" in opts ? opts.xMin : d3.min(ds, function(d) { return d.x; });
+  var xMax = "xMax" in opts ? opts.xMax : d3.max(ds, function(d) { return d.x; });
+  var yMin = "yMin" in opts ? opts.yMin : d3.min(ds, function(d) { return d.y; });
+  var yMax = "yMax" in opts ? opts.yMax : d3.max(ds, function(d) { return d.y; });
 
   var xScale = (opts.x === "date" ? d3.scaleTime() : d3.scaleLinear()).
     range([0, width]).
-    domain(opts.reverse ? [xMax, xMin] : [xMin, xMax]);
+    domain(opts.reverse ? [xMax, xMin] : [xMin, xMax]).
+    nice();
 
   var yScale = d3.scaleLinear().
     range([height, 0]).
-    domain([yMin, yMax]);
+    domain([yMin, yMax]).
+    nice();
 
   var svg = d3.select("#chart svg").
     attr("width", width + margin.left + margin.right).
@@ -51,9 +53,9 @@ var build = function(data, opts) {
     tickPadding(10).
     tickSize(-height);
 
-  var yAxis = d3.axisLeft(yScale).
+  var yAxis = d3.axisRight(yScale).
     tickPadding(10).
-    tickSize(-width);
+    tickSize(width);
 
   var gY = svg.append("g").
     attr("class", "y axis").
@@ -164,6 +166,7 @@ var app = new Vue({
         description: "EPICA Dome C Ice Core 800KYr Deuterium Data and Temperature Estimates. Jouzel, J., et al. 2007.",
         source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/epica_domec/edc3deuttemp2007.txt",
         reverse: true,
+        xMax: 800000,
         x: "age",
         y: "temperature"
       },
@@ -172,12 +175,15 @@ var app = new Vue({
         description: "Antarctic Ice Cores Revised 800KYr CO2 Data. Bereiter, B.; Eggleston, S.; Schmitt, J.; Nehrbass-Ahles, C.; Stocker, T.F.; Fischer, H.; Kipfstuhl, S.; Chappellaz, J.",
         source: "https://www1.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/antarctica2015co2composite.txt",
         reverse: true,
+        xMin: 0,
+        xMax: 800000,
         x: "age",
         y: "co2"
       },
       "data/fuji_temp.csv": {
         title: "Dome Fuji Temperature Reconstruction",
         reverse: true,
+        xMax: 350000,
         x: "age",
         y: "Tsite"
       },
