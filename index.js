@@ -154,7 +154,7 @@ var app = new Vue({
     selected: "data/edc_temp.csv",
     datasets: {
       "data/greenland_d18o.csv": {
-        title: "Greenland Ice Core Chronology 2005",
+        title: "Ice Core δ18O (Greenland)",
         description: "Greenland Ice Core Chronology 2005 (GICC05) 60,000 Year, 20 Year Resolution Released 10 September 2007, with d18O data from NGRIP on this time scale. NGRIP dating group, 2008.",
         source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/greenland/summit/ngrip/gicc05-60ka-20yr.txt",
         reverse: true,
@@ -162,7 +162,7 @@ var app = new Vue({
         y: "d18o"
       },
       "data/edc_d18o.csv": {
-        title: "EPICA Dome C Stable Isotope Data",
+        title: "Ice Core δ18O (EPICA Dome C, Antarctica)",
         description: "EPICA Dome C Stable Isotope Data to 44.8 KYrBP. Stenni, B., et al. 2006.",
         source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/epica_domec/edc96-iso-45kyr.txt",
         reverse: true,
@@ -170,7 +170,7 @@ var app = new Vue({
         y: "d18o"
       },
       "data/edc_temp.csv": {
-        title: "EPICA Dome C Ice Core Temperature Estimates",
+        title: "Ice Core Temperature (EPICA Dome C, Antarctica)",
         description: "EPICA Dome C Ice Core 800KYr Deuterium Data and Temperature Estimates. Jouzel, J., et al. 2007.",
         source: "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/epica_domec/edc3deuttemp2007.txt",
         reverse: true,
@@ -178,8 +178,17 @@ var app = new Vue({
         x: "age",
         y: "temperature"
       },
+      "data/fuji_temp.csv": {
+        title: "Ice Core Temperature (Dome Fuji, Antarctica)",
+        description: "Dome Fuji 360KYr Stable Isotope Data and Temperature Reconstruction. Uemura, R., V. Masson-Delmotte, J. Jouzel, A. Landais, H. Motoyama, and B. Stenni. 2012.",
+        source: "https://www1.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/domefuji/df2012isotope-temperature.txt",
+        reverse: true,
+        xMax: 350000,
+        x: "age",
+        y: "Tsite"
+      },
       "data/antarctic_co2.csv": {
-        title: "Antarctic Ice Cores Revised CO2 Data",
+        title: "Ice Core CO2 (Antarctica)",
         description: "Antarctic Ice Cores Revised 800KYr CO2 Data. Bereiter, B.; Eggleston, S.; Schmitt, J.; Nehrbass-Ahles, C.; Stocker, T.F.; Fischer, H.; Kipfstuhl, S.; Chappellaz, J.",
         source: "https://www1.ncdc.noaa.gov/pub/data/paleo/icecore/antarctica/antarctica2015co2composite.txt",
         reverse: true,
@@ -188,30 +197,31 @@ var app = new Vue({
         x: "age",
         y: "co2"
       },
-      "data/fuji_temp.csv": {
-        title: "Dome Fuji Temperature Reconstruction",
-        reverse: true,
-        xMax: 350000,
-        x: "age",
-        y: "Tsite"
-      },
       "data/ice_mlo_spo_co2.csv": {
-        title: "Merged Ice Cores MLO/SPO CO2 Data",
+        title: "Ice Core + Atmospheric CO2",
+        description: "Atmospheric CO2 record based on ice core data before 1958, (Ethridge et. al., 1996; MacFarling Meure et al., 2006) and yearly averages of direct observations from Mauna Loa and the South Pole after and including 1958 (from Scripps CO2 Program).",
+        source: "http://scrippsco2.ucsd.edu/data/atmospheric_co2/icecore_merged_products",
         x: "year",
         y: "co2"
       },
       "data/mlo_co2.csv": {
-        title: "Mauna Loa Atmospheric CO2 Concentrations",
+        title: "Atmospheric CO2 (Mauna Loa, Hawaii)",
+        description: "C. D. Keeling, S. C. Piper, R. B. Bacastow, M. Wahlen, T. P. Whorf, M. Heimann, and H. A. Meijer, Exchanges of atmospheric CO2 and 13CO2 with the terrestrial biosphere and oceans from 1978 to 2000. I. Global aspects, SIO Reference Series, No. 01-06, Scripps Institution of Oceanography, San Diego, 88 pages, 2001.",
+        source: "http://scrippsco2.ucsd.edu/data/atmospheric_co2/primary_mlo_co2_record",
         x: "date",
         y: "co2"
       },
       "data/deboer2014.csv": {
-        title: "Global 5 Million Year Sea Level Reconstructions",
+        title: "Reconstructed Sea Level",
+        description: "Global 5 Million Year Sea Level, Temperature, and d18Osw Reconstructions. de Boer, B; Lourens, L.J.; van de Wal, R.S.W.",
+        source: "https://www1.ncdc.noaa.gov/pub/data/paleo/reconstructions/deboer2014/deboer2014.txt",
         x: "age_calkaBP",
         y: "sealev"
       },
       "data/deboer2014.csv?temp": {
-        title: "Global 5 Million Year Temperature Reconstructions",
+        title: "Reconstructed Temperature",
+        description: "Global 5 Million Year Sea Level, Temperature, and d18Osw Reconstructions. de Boer, B; Lourens, L.J.; van de Wal, R.S.W.",
+        source: "https://www1.ncdc.noaa.gov/pub/data/paleo/reconstructions/deboer2014/deboer2014.txt",
         x: "age_calkaBP",
         y: "tempanomNH"
       }
