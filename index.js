@@ -164,8 +164,8 @@ var load = function(url, opts) {
   });
 };
 
-var app = new Vue({
-  el: "#app",
+var menu = new Vue({
+  el: "#menu",
   data: {
     selected: "data/edc_temp.csv",
     datasets: {
