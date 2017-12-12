@@ -1,7 +1,7 @@
 var build = function(data, opts) {
   $("#chart svg").empty().removeAttr("width").removeAttr("height");
 
-  var margin = { top: 40, right: 50, bottom: 40, left: 50 };
+  var margin = { top: 40, right: 50, bottom: 35, left: 50 };
   var width = $("#chart").width() - margin.left - margin.right;
   var height = $("#chart").height() - margin.top - margin.bottom;
 

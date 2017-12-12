@@ -2,15 +2,18 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 18px;
-  overflow: hidden;
 }
-.fullscreen {
-  min-height: 100vh;
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+}
+.screen {
   width: 100%;
   margin: 0;
   flex-direction: column;
 }
 #chart {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   flex-grow: 1;
@@ -30,21 +33,26 @@ body {
 #btn-menu[aria-expanded="true"] {
   cursor: w-resize;
 }
+.text-shadow {
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
 @media (min-width: 768px) {
   #btn-menu {
     position: absolute;
     left: 0;
     top: -2px;
     z-index: 10;
-    height: 100%;
+    height: calc(100% + 2px);
     padding: 2px;
     color: #999;
+    box-sizing: border-box;
     border-left: solid 1px #999;
     border-right: solid 1px #999;
     border-radius: 0;
     display: block;
   }
   #menu {
+    box-shadow: 6px 0px 12px rgba(0, 0, 0, 0.5);
     height: 100vh !important;
   }
   #menu.collapsing {
@@ -60,7 +68,8 @@ body {
   #chart {
     flex-grow: 3;
   }
-  .fullscreen {
+  .screen {
+    min-height: 100vh;
     flex-direction: row;
   }
 }
@@ -69,11 +78,12 @@ body {
 
 svg {
   width: 100%;
+  vertical-align: top;
 }
 .line {
   fill: none;
   stroke-width: 2px;
-  opacity: 0.9;
+  opacity: 0.8;
   clip-path: url(#clip);
 }
 .domain {
@@ -83,12 +93,12 @@ svg {
   opacity: 0.1;
 }
 .axis text {
-  opacity: 0.5;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 18px;
+  fill: #777;
 }
 .title {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 20px;
-  opacity: 0.75;
+  fill: #333;
 }
