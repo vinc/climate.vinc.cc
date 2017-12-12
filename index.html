@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="app" class="row fullscreen">
-      <aside id="menu" class="col collapse show bg-info text-light">
+      <aside id="menu" class="col-md collapse show bg-info text-light">
         <h1>Climate Chart</h1>
         <form>
           <div class="form-group">
@@ -22,9 +22,9 @@
               </select>
           </div>
         </form>
-        <p>{{ datasets[selected].description }}</p>
+        <p class="mb-0">{{ datasets[selected].description }}</p>
       </aside>
-      <section id="chart" class="col">
+      <section id="chart" class="col-md">
         <button id="btn-menu" type="button" class="btn btn-light" data-toggle="collapse" data-target="#menu" aria-expanded="true"></button>
 
         <svg></svg>
