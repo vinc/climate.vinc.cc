@@ -83,7 +83,11 @@ var build = function(data, opts) {
     attr("stroke", opts.color || "#17a2b8").
     attr("d", yLine);
 
-  var zoom = d3.zoom().on("zoom", zoomed);
+  var zoom = d3.zoom().
+    scaleExtent([1, 128]).
+    translateExtent([[0, 0], [width, height]]).
+    extent([[0, 0], [width, height]]).
+    on("zoom", zoomed);
 
   var view = svg.append("rect").
     attr("class", "zoom").
