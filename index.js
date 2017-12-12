@@ -1,6 +1,4 @@
 var build = function(data, opts) {
-  $("#chart svg").empty().removeAttr("width").removeAttr("height");
-
   var margin = { top: 40, right: 50, bottom: 40, left: 50 };
   var width = $("#chart").width() - margin.left - margin.right;
   var height = $("#chart").height() - margin.top - margin.bottom;
@@ -126,6 +124,7 @@ var build = function(data, opts) {
 
 var rebuildTimeout;
 var load = function(url, opts) {
+  $("#chart svg").empty().removeAttr("width").removeAttr("height");
   d3.csv(url, function(error, data) {
     if (error) {
       throw error;
