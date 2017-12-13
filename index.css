@@ -13,7 +13,7 @@ h1 {
   flex-direction: column;
 }
 #chart {
-  min-height: 100vh;
+  height: 80vh;
   margin: 0;
   padding: 0;
   flex-grow: 1;
@@ -21,23 +21,23 @@ h1 {
 #btn-menu {
   display: none;
 }
+#btn-menu::before,
 #btn-menu::after {
-  content: "⋮";
-  position: absolute;
-  left: -5px;
-  top: 0;
-  line-height: 100vh;
-
-  /*
   content: "";
   position: absolute;
-  left: 0;
-  width: 4px;
+  left: 2px;
+  width: 2px;
   display: block;
-  height: 14px;
-  border-right: dotted 2px;
-  margin-top: -3px;
-  */
+}
+#btn-menu::after {
+  height: 12px;
+  margin-top: -5px;
+  border-top: solid 2px;
+  border-bottom: solid 2px;
+}
+#btn-menu::before {
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 #btn-menu[aria-expanded="false"] {
   cursor: e-resize;
@@ -57,14 +57,17 @@ h1 {
   #btn-menu {
     position: absolute;
     left: 0;
-    top: -2px;
+    top: 0;
     z-index: 10;
-    height: calc(100% + 2px);
+    height: calc(100%);
     padding: 0;
     width: 8px;
     box-sizing: border-box;
-    border-left: solid 1px #999;
-    border-right: solid 1px #999;
+    border-left: solid 1px;
+    border-right: solid 1px;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-top: none;
+    border-bottom: none;
     border-radius: 0;
     display: block;
     color: #999;
@@ -85,9 +88,9 @@ h1 {
   }
   #chart {
     flex-grow: 3;
+    height: 100vh;
   }
   .screen {
-    min-height: 100vh;
     flex-direction: row;
   }
 }
