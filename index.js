@@ -147,10 +147,11 @@ var build = function(data, opts) {
   var focusMove = function(coords) {
     var x = xScaleZoomed.invert(coords[0]);
     var i = d3.bisector(function(d) { return d.x; }).left(ds, x);
+    var n = ds.length;
 
     var d0 = ds[i - 1];
     var d1 = ds[i];
-    var d = (x - d0.x < d1.x - x) ? d0 : d1;
+    var d = i > 0 ? (i < n ? ((x - d0.x < d1.x - x) ? d0 : d1) : d0) : d1;
 
     var xFormat = opts.x === "date" ? d3.timeFormat("%Y-%m-%d") : xScaleZoomed.tickFormat();
     var yFormat = yScale.tickFormat();
@@ -159,7 +160,7 @@ var build = function(data, opts) {
     xFocusLine.attr("transform", "translate(" + xScaleZoomed(d.x) + ",0)");
     yFocusLine.attr("transform", "translate(0," + yScale(d.y) + ")");
     focus.select("circle.y").
-      attr("transform", "translate(" + xScaleZoomed(d.x) + "," + yScale(d.y) + ")");
+      attr("transform", "translate(" + xScaleZoomed(d.x) + "," + yScale(y) + ")");
   };
 
   svg.append("defs").append("clipPath").
