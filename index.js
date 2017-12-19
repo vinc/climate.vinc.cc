@@ -50,7 +50,7 @@ var build = function(data, opts) {
     }).
     x(function(d) { return xScale(d.x); }).
     y(function(d) { return yScale(d.y); }).
-    curve(d3.curveBasis);
+    curve(d3.curveLinear);
 
   var xAxis = d3.axisBottom(xScale).
     tickPadding(10).
