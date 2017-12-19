@@ -140,7 +140,6 @@ var build = function(data, opts) {
       tooltip.style("top", (d3.event.pageY - 18) + "px");
       var coords = d3.mouse(this);
 
-      xFocusLine.attr("transform", "translate(" + coords[0] + ",0)");
       focusMove(coords);
     }).
     call(zoom);
@@ -148,15 +147,19 @@ var build = function(data, opts) {
   var focusMove = function(coords) {
     var x = xScaleZoomed.invert(coords[0]);
     var i = d3.bisector(function(d) { return d.x; }).left(ds, x);
-    var y = ds[i].y;
+
+    var d0 = ds[i - 1];
+    var d1 = ds[i];
+    var d = (x - d0.x < d1.x - x) ? d0 : d1;
 
     var xFormat = opts.x === "date" ? d3.timeFormat("%Y-%m-%d") : xScaleZoomed.tickFormat();
     var yFormat = yScale.tickFormat();
-    tooltip.html("x = " + xFormat(x) + "<br/>y = " + yFormat(y));
+    tooltip.html("x = " + xFormat(d.x) + "<br/>y = " + yFormat(d.y));
 
-    yFocusLine.attr("transform", "translate(0," + yScale(y) + ")");
+    xFocusLine.attr("transform", "translate(" + xScaleZoomed(d.x) + ",0)");
+    yFocusLine.attr("transform", "translate(0," + yScale(d.y) + ")");
     focus.select("circle.y").
-      attr("transform", "translate(" + xScaleZoomed(x) + "," + yScale(y) + ")");
+      attr("transform", "translate(" + xScaleZoomed(d.x) + "," + yScale(d.y) + ")");
   };
 
   svg.append("defs").append("clipPath").
