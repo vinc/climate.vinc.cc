@@ -160,7 +160,7 @@ var build = function(data, opts) {
     xFocusLine.attr("transform", "translate(" + xScaleZoomed(d.x) + ",0)");
     yFocusLine.attr("transform", "translate(0," + yScale(d.y) + ")");
     focus.select("circle.y").
-      attr("transform", "translate(" + xScaleZoomed(d.x) + "," + yScale(y) + ")");
+      attr("transform", "translate(" + xScaleZoomed(d.x) + "," + yScale(d.y) + ")");
   };
 
   svg.append("defs").append("clipPath").
