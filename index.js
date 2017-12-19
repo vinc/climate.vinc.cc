@@ -1,5 +1,9 @@
-var build = function(data, opts) {
+var clean = function() {
   $("#chart svg").empty().removeAttr("width").removeAttr("height");
+  $(".tooltip").remove();
+};
+var build = function(data, opts) {
+  clean();
 
   var margin = { top: 40, right: 50, bottom: 35, left: 50 };
   var width = $("#chart").width() - margin.left - margin.right;
@@ -27,6 +31,7 @@ var build = function(data, opts) {
     range([0, width]).
     domain(opts.reverse ? [xMax, xMin] : [xMin, xMax]).
     nice();
+  var xScaleZoomed = xScale;
 
   var yScale = d3.scaleLinear().
     range([height, 0]).
@@ -70,6 +75,20 @@ var build = function(data, opts) {
       attr("stroke-width", "2");
   }
 
+  var xFocusLine = svg.append("line").
+    attr("class", "focus-line").
+    attr("y1", 0).
+    attr("y2", height).
+    attr("x1", 0).
+    attr("x2", 0);
+
+  var yFocusLine = svg.append("line").
+    attr("class", "focus-line").
+    attr("y1", 0).
+    attr("y2", 0).
+    attr("x1", 0).
+    attr("x2", width);
+
   var gX = svg.append("g").
     attr("class", "x axis").
     attr("transform", "translate(0," + height + ")").
@@ -81,39 +100,73 @@ var build = function(data, opts) {
     attr("stroke", opts.color || "#17a2b8").
     attr("d", yLine);
 
+  var focus = svg.append("g").style("display", "none");
+
+  focus.append("circle").
+    attr("class", "y").
+    attr("fill", opts.color || "#17a2b8").
+    attr("stroke-width", "2").
+    attr("r", 4);
+
+  var tooltip = d3.select("body").append("div").
+    attr("class", "tooltip").
+    style("opacity", 0);
+
   var zoom = d3.zoom().
     scaleExtent([1, 128]).
     translateExtent([[0, 0], [width, height]]).
     extent([[0, 0], [width, height]]).
     on("zoom", zoomed);
 
-  var view = svg.append("rect").
-    attr("class", "zoom").
+  svg.append("rect").
     attr("width", width).
     attr("height", height).
-    attr("opacity", "0").
+    style("fill", "none").
+    style("pointer-events", "all").
+    on("mouseover", function() {
+      focus.style("display", "inline");
+      xFocusLine.style("display", "inline");
+      yFocusLine.style("display", "inline");
+      tooltip.transition().duration(200).style("opacity", 0.8);
+    }).
+    on("mouseout", function() {
+      focus.style("display", "none");
+      xFocusLine.style("display", "none");
+      yFocusLine.style("display", "none");
+      tooltip.transition().duration(500).style("opacity", 0);
+    }).
+    on("mousemove", function() {
+      tooltip.style("left", (d3.event.pageX + 20) + "px");
+      tooltip.style("top", (d3.event.pageY - 18) + "px");
+      var coords = d3.mouse(this);
+
+      xFocusLine.attr("transform", "translate(" + coords[0] + ",0)");
+      focusMove(coords);
+    }).
     call(zoom);
+
+  var focusMove = function(coords) {
+    var x = xScaleZoomed.invert(coords[0]);
+    var i = d3.bisector(function(d) { return d.x; }).left(ds, x);
+    var y = ds[i].y;
+
+    var xFormat = opts.x === "date" ? d3.timeFormat("%Y-%m-%d") : xScaleZoomed.tickFormat();
+    var yFormat = yScale.tickFormat();
+    tooltip.html("x = " + xFormat(x) + "<br/>y = " + yFormat(y));
+
+    yFocusLine.attr("transform", "translate(0," + yScale(y) + ")");
+    focus.select("circle.y").
+      attr("transform", "translate(" + xScaleZoomed(x) + "," + yScale(y) + ")");
+  };
 
   svg.append("defs").append("clipPath").
     attr("id", "clip").append("rect").
     attr("width", width).attr("height", height);
 
   function zoomed() {
-    var xRescale = d3.event.transform.rescaleX(xScale); // .nice();
-
-    var domain = xRescale.domain();
-    var xZoomMin = domain[0];
-    var xZoomMax = domain[1];
-    //var xZoomMin = 0;
-    //var xZoomMin = domain[0] < xMin ? xMin : domain[0];
-    //var xZoomMax = domain[1] > xMax ? xMax : domain[1];
-    //xRescale = xRescale.domain([xZoomMin, xZoomMax]);
-
-    gX.call(xAxis.scale(xRescale));
-
-    //path.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-    var yZoomLine = yLine.x(function(d) { return xRescale(d.x); });
-    path.attr("d", yZoomLine);
+    xScaleZoomed = d3.event.transform.rescaleX(xScale); // .nice();
+    gX.call(xAxis.scale(xScaleZoomed));
+    path.attr("d", yLine.x(function(d) { return xScaleZoomed(d.x); }));
   }
 
   svg.append("text").
@@ -126,7 +179,7 @@ var build = function(data, opts) {
 
 var rebuildTimeout;
 var load = function(url, opts) {
-  $("#chart svg").empty().removeAttr("width").removeAttr("height");
+  clean();
 
   var title = "Climate Chart - " + opts.title;
   window.history.replaceState({}, title, "?chart=" + url);

@@ -123,3 +123,22 @@ svg {
   font-size: 20px;
   fill: #333;
 }
+.focus-line {
+  stroke-dasharray: 3 3;
+  stroke: black;
+  opacity: 0.25;
+  stroke-width: 2;
+  display: none;
+}
+div.tooltip {
+  position: absolute;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 3px;
+  background: white;
+  border: solid 1px #999;
+  border-radius: 3px;
+  pointer-events: none;
+  fill: #333;
+}
